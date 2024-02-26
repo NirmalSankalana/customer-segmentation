@@ -38,6 +38,7 @@ Date, transaction IDs are seems not useful in customer segmentation.
 **Principle Component Analysis(PCA)** is a popular dimentionality reduction and it is used to reduce the number of features. It is a common practice to apply PCA before a clustering algorithm. It is believed that it improves the clustering results in practice by reducing noise.
 
 ## K Means Algorithm
+Notebook: [customer-segmentation-k-means](https://www.kaggle.com/code/nirmalsankalana/customer-segmentation-k-means/notebook) 
 
 K Means is a distance based clustering algorithm which segment data to K clusters. Each data point is assigned to a cluster based on the distance of the data to the centroid. The centroid is then recalculated based on the mean of all the data points in the cluster. This process is repeated until the centroids do not change.
 
