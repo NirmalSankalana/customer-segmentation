@@ -9,7 +9,7 @@ There is no any null values in the dataset.
 
 ## Outlier Removal
 
-There are some outlier transactions exists in Quantity and Salse_Amount columns. Some clustering algorithms such as K-means is sensitive to outliers. Therefore those enties have been eliminated using **z score method**.
+Outliers in the Quantity and Sales_Amount columns have been identified and eliminated, as some clustering algorithms, such as K-means, are sensitive to outliers. The **z-score method** was employed for this purpose.
 
 ![outliers](./img//outliers.png)
 
@@ -17,42 +17,43 @@ There are some outlier transactions exists in Quantity and Salse_Amount columns.
 
 Following features are created in feature engineering:
 
-1. Total amount spent by a Customer
-2. Number of transaction by a customer
+1. Total amount spent by a customer
+2. Number of transactions by a customer
 3. Amount spent by the customer for each category
-4. Quantity baught by the customer for each product
+4. Quantity bought by the customer for each productt
 
-Date, transaction IDs are seems not useful in customer segmentation.
+Date and transaction IDs seem not useful in customer segmentation Those columns were eliminated. 
 
-After doing creating features mentioned above there are `5245` features of `22625` customers in the dataframe. Since this is a high dimentional dataframe some feature selection and dimentionality reduction methods are used.
+After creating the mentioned features, the dataframe contains `5245` features for `22625` customers. Given the high dimensionality of the dataframe, some feature selection and dimensionality reduction methods were applied.
 
-1. **Variency thresholding** is used to remove low variace features. Here any feature with a variance lower than 0.05 will be considered a low-variance feature and will be removed.
+1. **Variency thresholding** Features with a variance lower than 0.05 were considered low-variance and were removed.
 
-2. **Principle Component Analysis(PCA)** is a popular dimentionality reduction and it is used to reduce the number of features. It is a common practice to apply PCA before a clustering algorithm. It is believed that it improves the clustering results in practice by reducing noise.
+2. **Principle Component Analysis(PCA)**: A popular dimensionality reduction method, PCA was employed to reduce the number of features. It is a common practice to apply PCA before a clustering algorithm to improve clustering results by reducing noise.
 
-**Feature scaling** is done using standerdization. It ensures fair contribution of each feature to the clustering process and avoid biased clusters.
+**Feature scaling** was performed using standardization to ensure a fair contribution of each feature to the clustering process and avoid biased clusters.
 
 ## 1. K Means Algorithm
 
 Notebook: [customer-segmentation-k-means](https://www.kaggle.com/code/nirmalsankalana/customer-segmentation-k-means/notebook)
 
-K Means is a distance based clustering algorithm which segment data to K clusters. Each data point is assigned to a cluster based on the distance of the data to the centroid. The centroid is then recalculated based on the mean of all the data points in the cluster. This process is repeated until the centroids do not change.
+K-means is a distance-based clustering algorithm that segments data into K clusters. Each data point is assigned to a cluster based on the distance to the centroid, which is recalculated as the mean of all data points in the cluster. This process repeats until centroids do not change.
 
 ### Finding the optimal number of clusters
 
-An inappropriate choice of K may lead to either oversimplification or over-complication of the clustering results, rendering them less useful for meaningful insights. There are 2 method used to find the optimal number of clusters:
+Two methods were used to find the optimal number of clusters:
 
-1. **Elbow Method**: determine the K value where the within-cluster sum of squares (WCSS) exhibits a significant reduction, forming an elbow-like shape in the plot.
-2. **Silhouette Method**: quantitatively measures how well each data point fits its assigned cluster compared to neighboring clusters.
+1. **Elbow Method**: Determines the K value where the within-cluster sum of squares (WCSS) exhibits a significant reduction, forming an elbow-like shape in the plot.
 
-Elbow method gave k = 4 and shilhout method gave K = 2. After performing clustering on the data, we can see that the clusters are not well separated and not interpretabale when k = 4. Therefore k = 2 is used.
+2. **Silhouette Method**: Quantitatively measures how well each data point fits its assigned cluster compared to neighboring clusters.
 
-When K=2 Characteristics of the two clusters are like this:
+The elbow method suggested K = 4, while the silhouette method suggested K = 2. After clustering the data, it was observed that clusters were not well-separated and interpretable when K = 4. Therefore, K = 2 was chosen.
 
-- **Cluster 0**: Customers who generate less revenue and less often come to the store
-- **Cluster 1**: Customers who generate more revenue and more often come to the store
+##### When K=2 Characteristics of the two clusters are like this:
 
-please refer [this](https://www.kaggle.com/code/nirmalsankalana/customer-segmentation-k-means/notebook) notebook for interactive visualisations.
+- **Cluster 0**: Customers who generate less revenue and visit the store less frequently.
+- **Cluster 1**: Customers who generate more revenue and visit the store more frequently.
+
+or interactive visualizations, please refer to [this notebook](https://www.kaggle.com/code/nirmalsankalana/customer-segmentation-k-means/notebook).
 
 ![Clusters 3D](./img//k_means_clsters_3d.png)
 
